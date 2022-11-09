@@ -34,3 +34,173 @@ title="Translucent colours can show data point density", caption="mpg dataset")
 
 ```
 
+```{r}
+ggplot(mpg, aes(displ, cyl))+
+geom_point(size=2,
+position = position_jitter(w=0.05,h=0.05))+
+labs(x="Displacement", y="Cylinders",
+title="Random noise can also show data point density",
+caption="mpg dataset")
+
+```
+
+```{r}
+ggplot(mpg, aes(displ, cyl))+
+geom_point(size=1,
+position = position_jitter(w=0,h=0.15))+
+labs(x="Displacement", y="Cylinders",
+title="Noise can be added on just one axis",
+caption="mpg dataset")
+
+```
+
+```{r}
+ggplot(mpg, aes(cty, hwy))+geom_point()+
+geom_smooth(method = "lm", se=FALSE)+
+labs(x="City", y="Highway", title="Comparing fuel economy",
+caption="mpg dataset")
+
+```
+
+```{r, fig.height=15}
+q1 <- ggplot(mpg, aes(cty, hwy))+geom_point()+labs(x="City", y="Highway", title="Comparing fuel economy",
+caption="mpg dataset")
+
+q2 <- ggplot(mpg, aes(cty, hwy))+geom_point(size = 4, colour= rgb(.36, .65, .19, .25))+labs(x="City", y="Highway", title="Comparing fuel economy",
+caption="mpg dataset")
+
+q3 <- ggplot(mpg, aes(cty, hwy))+geom_point(size=2, position = position_jitter(w=0,h=.3))+geom_smooth(method = 'lm', color='red')+labs(x="City", y="Highway", title="Comparing fuel economy",
+caption="mpg dataset")
+
+grid.arrange(q1, q2, q3, ncol=1)
+```
+
+```{r}
+data("economics")
+ggplot(economics, aes(x=date, y=unemploy))+geom_line()+
+labs(x="Date", y="Unemployed (in thousands)",
+title="Unemployment progression",
+caption="economics dataset")
+
+```
+
+```{r}
+data("economics")
+ggplot(economics, aes(x=date, y=unemploy))+
+geom_line(colour="red", size=1.5, linetype = 2)+geom_line(colour="blue")+
+labs(x="Date", y="Unemployed (in thousands)",
+title="Unemployment progression",
+caption="economics dataset")
+
+```
+
+```{r}
+data("economics")
+ggplot(economics, aes(x=date, y=unemploy))+
+geom_line(aes(colour=pop), size=1)+
+labs(x="Date", y="Unemployed (in thousands)",
+title="Unemployment progression",
+caption="economics dataset",
+colour="Population\n(in thousands)")
+
+```
+
+```{r}
+ggplot(economics, aes(x=date))+
+geom_line(aes(y=unemploy))+
+geom_line(aes(y=pop))+
+labs(x="Date", y="Numbers (in thousands)",
+title="Unemployment progression",
+caption="economics dataset")+
+scale_y_continuous(trans = "log",
+breaks=c(10**3, 10**4, 10**5, 10**6))
+```
+
+```{r}
+ggplot(economics, aes(x=date))+
+geom_line(aes(y=unemploy, col="Unemployed"))+
+geom_line(aes(y=pop, col="Total population"))+
+labs(x="Date", y="Numbers (in thousands)",
+title="Unemployment progression",
+caption="economics dataset")+
+scale_y_continuous(trans = "log",
+breaks=c(10**3, 10**4, 10**5, 10**6))+
+scale_colour_manual(name="Legend",
+values=c("Unemployed"="red",
+"Total population"="blue"))
+
+```
+
+```{r}
+ggplot(economics, aes(x=date,y=psavert))+
+geom_line(aes(colour=pce), size=1.2)+labs(x="Date", y="Personal Saving Rate",
+caption="economics dataset",
+colour="Personal Consumption Expenditures")
+
+```
+
+```{r, fig.height=15}
+hist1<-ggplot(mpg, aes(cty))+
+geom_histogram(bins=10, fill="lightgreen")+ labs(x="Fuel economy in the city",
+y="Frequency", caption="mpg dataset", title='Bins')
+hist2<-ggplot(mpg, aes(cty))+
+geom_histogram(binwidth=5, fill="lightblue")+ labs(x="Fuel economy in the city",
+y="Frequency", caption="mpg dataset", title='Binwidth')
+hist3<-ggplot(mpg, aes(cty))+
+geom_histogram(breaks=c(5,10,15,20,25,30,35,40), fill="lightcoral")+
+labs(x="Fuel economy in the city", y="Frequency",
+caption="mpg dataset", title='Breaks')
+grid.arrange(hist1, hist2, hist3, ncol=1)
+
+```
+
+```{r, fig.height=15}
+hist4<-ggplot(mpg, aes(displ))+
+geom_histogram(bins=15, fill="lightgreen")+ labs(x="Displacement",
+y="Frequency", caption="mpg dataset", title='Bins')
+hist5<-ggplot(mpg, aes(displ))+
+geom_histogram(binwidth=1, fill="lightblue")+ labs(x="Displacement",
+y="Frequency", caption="mpg dataset", title='Binwidth')
+hist6<-ggplot(mpg, aes(displ))+
+geom_histogram(breaks=c(1,3,5,7), fill="lightcoral")+
+labs(x="Displacement", y="Frequency",
+caption="mpg dataset", title='Breaks')
+grid.arrange(hist4, hist5, hist6, ncol=1)
+```
+
+```{r}
+ggplot(mpg, aes(class, cty)) +
+geom_boxplot(varwidth=TRUE, fill="plum") +
+labs(title="Fuel economy in city grouped by Class of vehicle",
+caption="mpg dataset",
+x="Class of Vehicle",
+y="City Mileage")
+
+```
+
+```{r}
+ggplot(mpg, aes(cyl,displ, group = cyl)) +
+geom_boxplot(varwidth=TRUE, fill="plum")+
+labs(
+caption="mpg dataset",
+x="Number of cylinders",
+y="Engine Displacement")
+
+
+```
+
+```{r}
+ggplot(diamonds, aes(price, carat))+geom_point(size=1.1, colour=rgb(0,0,1,0.05))+
+labs(x="Price", y="Carat",
+title="Comparison of price and carat", caption="diamonds dataset")
+```
+
+```{r}
+ggplot(diamonds, aes(cut, price)) +
+geom_boxplot(varwidth=TRUE, fill="green") +
+labs(title="Distribution of price based on cut type",
+caption="diamonds dataset",
+x="Cut Type",
+y="Price")
+```
+
