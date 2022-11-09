@@ -1,0 +1,36 @@
+---
+title: "Week 7"
+author: "Yuqi Gao"
+date: "2022-11-09"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, include=FALSE}
+#install.packages("gridExtra")
+library(ggplot2)
+library(tidyverse)
+library(gridExtra)
+```
+
+```{r, fig.height=10}
+size.plot<-ggplot(mpg, aes(displ, cyl))+ geom_point(aes(size=cty)) +
+labs(x='Displacement', y='Cylinders', size='City mpg')
+colour.plot<-ggplot(mpg, aes(displ, cyl))+ geom_point(aes(colour= hwy)) +
+labs(x='Displacement', y='Cylinders', colour='Highway\nmpg')
+shape.plot<-ggplot(mpg, aes(displ, cyl))+ geom_point(aes(shape=fl)) +
+labs(x='Displacement', y='Cylinders', shape='Fuel type')
+grid.arrange(size.plot, colour.plot, shape.plot, ncol=1)
+
+```
+
+```{r}
+ggplot(mpg, aes(displ, cyl))+geom_point(size=6, colour=rgb(1,0,0,0.25))+
+labs(x="Displacement", y="Cylinders",
+title="Translucent colours can show data point density", caption="mpg dataset")
+
+```
+
